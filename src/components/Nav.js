@@ -3,25 +3,37 @@ import React from 'react';
 function Nav() {
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <a href="#">Home</a>
+      <nav className="main-nav">
+        <ul className="main-nav__list">
+          <li className="main-nav__item">
+            <a href="#" className="main-nav__link">
+              Home
+            </a>
           </li>
           <li>
-            <a href="#">About</a>
+            <a href="#" className="main-nav__link">
+              About
+            </a>
           </li>
           <li>
-            <a href="#">Menu</a>
+            <a href="#" className="main-nav__link">
+              Menu
+            </a>
           </li>
           <li>
-            <a href="#">Reservations</a>
+            <a href="#" className="main-nav__link">
+              Reservations
+            </a>
           </li>
           <li>
-            <a href="#">Order Online</a>
+            <a href="#" className="main-nav__link">
+              Order Online
+            </a>
           </li>
           <li>
-            <a href="#">Login</a>
+            <a href="#" className="main-nav__link">
+              Login
+            </a>
           </li>
         </ul>
       </nav>
