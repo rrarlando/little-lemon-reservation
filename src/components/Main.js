@@ -1,9 +1,12 @@
 import React from 'react';
+import Hero from './Hero';
+import Specials from './Specials';
 
 function Main() {
   return (
-    <main className='main'>
-      <h2>Some sections here</h2>
+    <main className="main">
+      <Hero />
+      <Specials />
     </main>
   );
 }

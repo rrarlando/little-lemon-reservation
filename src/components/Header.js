@@ -4,12 +4,14 @@ import logo from '../images/Logo.svg';
 
 function Header() {
   return (
-    <header className='header'>
-      <img
-        src={logo}
-        alt="Little Lemon Restaurant Logo"
-        className="header__logo"
-      ></img>
+    <header className="header container">
+      <a href="#" className="header__link">
+        <img
+          src={logo}
+          alt="Little Lemon Restaurant Logo"
+          className="header__logo"
+        ></img>
+      </a>
       <Nav />
     </header>
   );
