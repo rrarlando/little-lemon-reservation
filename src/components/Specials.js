@@ -28,7 +28,7 @@ function Specials() {
           Online Menu
         </a>
       </div>
-      <div className="specials__cards grid-3-cols">{menuCard}</div>
+      <div className="specials__cards">{menuCard}</div>
     </section>
   );
 }
