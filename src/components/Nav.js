@@ -1,5 +1,7 @@
 import React from 'react';
 import '../App.css';
+import CloseButton from './icons/CloseButton';
+import HamburgerMenu from './icons/HamburgerMenu';
 
 function Nav() {
   return (
@@ -37,7 +39,13 @@ function Nav() {
             </a>
           </li>
         </ul>
+        <button className="main-nav__btn close-btn">
+          <CloseButton />
+        </button>
       </nav>
+      <button className="main-nav__btn open-btn">
+        <HamburgerMenu />
+      </button>
     </>
   );
 }

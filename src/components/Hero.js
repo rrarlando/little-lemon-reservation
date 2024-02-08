@@ -5,7 +5,7 @@ import restaurantfood from '../images/restaurantfood.jpg';
 function Hero() {
   return (
     <section className="hero">
-      <div className="container grid-2-cols">
+      <div className="container hero-grid">
         <div className="hero__text">
           <h1 className="display-title">Little Lemon</h1>
           <h2 className="subtitle">Chicago</h2>
