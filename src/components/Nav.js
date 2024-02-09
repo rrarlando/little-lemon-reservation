@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import '../App.css';
 import CloseButton from './icons/CloseButton';
 import HamburgerMenu from './icons/HamburgerMenu';
 
 function Nav() {
+  const navRef = useRef();
+
+  const toggleNavbar = () => {
+    navRef.current.classList.toggle('toggle-nav');
+  };
+
   return (
     <>
-      <nav className="main-nav">
+      <nav ref={navRef} className="main-nav">
         <ul className="main-nav__list">
           <li className="main-nav__item">
             <a href="#" className="main-nav__link">
@@ -39,11 +45,11 @@ function Nav() {
             </a>
           </li>
         </ul>
-        <button className="main-nav__btn close-btn">
+        <button onClick={toggleNavbar} className="main-nav__btn close-btn">
           <CloseButton />
         </button>
       </nav>
-      <button className="main-nav__btn open-btn">
+      <button onClick={toggleNavbar} className="main-nav__btn open-btn">
         <HamburgerMenu />
       </button>
     </>
