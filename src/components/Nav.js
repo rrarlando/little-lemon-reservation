@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import CloseButton from './icons/CloseButton';
 import HamburgerMenu from './icons/HamburgerMenu';
@@ -15,34 +16,38 @@ function Nav() {
       <nav ref={navRef} className="main-nav">
         <ul className="main-nav__list">
           <li className="main-nav__item">
-            <a href="#" className="main-nav__link">
+            <Link to="/" onClick={toggleNavbar} className="main-nav__link">
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="main-nav__link">
+            <Link to="/about" onClick={toggleNavbar} className="main-nav__link">
               About
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="main-nav__link">
+            <Link to="/menu" onClick={toggleNavbar} className="main-nav__link">
               Menu
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="main-nav__link">
+            <Link
+              to="/booking"
+              onClick={toggleNavbar}
+              className="main-nav__link"
+            >
               Reservations
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="main-nav__link">
+            <Link to="/order" onClick={toggleNavbar} className="main-nav__link">
               Order Online
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="main-nav__link">
+            <Link to="/login" onClick={toggleNavbar} className="main-nav__link">
               Login
-            </a>
+            </Link>
           </li>
         </ul>
         <button onClick={toggleNavbar} className="main-nav__btn close-btn">

@@ -1,5 +1,6 @@
 import React from 'react';
 import menu from './data/menu';
+import { Link } from 'react-router-dom';
 
 function Specials() {
   const menuCard = menu.map(item => {
@@ -12,9 +13,9 @@ function Specials() {
             <p className="specials__price">${item.price}</p>
           </div>
           <p className="specials__description">{item.description}</p>
-          <a href="#" className="specials__delivery-btn">
+          <Link to="/menu" className="specials__delivery-btn">
             Order a delivery
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -24,9 +25,9 @@ function Specials() {
     <section className="specials container">
       <div className="specials__heading">
         <h2 className="subtitle">This week's specials!</h2>
-        <a href="#" className="specials__cta lead-text">
+        <Link to="/menu" className="specials__cta lead-text">
           Online Menu
-        </a>
+        </Link>
       </div>
       <div className="specials__cards">{menuCard}</div>
     </section>

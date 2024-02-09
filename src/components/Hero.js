@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import restaurantfood from '../images/restaurantfood.jpg';
 
@@ -13,9 +14,12 @@ function Hero() {
             We are a family owned Mediterranean restaurant, focused on
             traditional recipes served with a modern twist.
           </p>
-          <a href="#" className="hero__cta lead-text">
+          {/* <a href="#" className="hero__cta lead-text">
             Reserve a Table
-          </a>
+          </a> */}
+          <Link to="/booking" className="hero__cta lead-text">
+            Reserve a Table
+          </Link>
         </div>
         <img
           src={restaurantfood}

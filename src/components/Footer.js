@@ -3,6 +3,7 @@ import small_logo from '../images/small_logo.png';
 import facebook from '../images/facebook-square-logo-24.png';
 import instagram from '../images/instagram-alt-logo-24.png';
 import pinterest from '../images/pinterest-logo-24.png';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -16,12 +17,24 @@ function Footer() {
         <div className="footer__content">
           <h4 className="footer__heading">Important Links</h4>
           <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Menu</li>
-            <li>Reservations</li>
-            <li>Order Online</li>
-            <li>Login</li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/menu">Menu</Link>
+            </li>
+            <li>
+              <Link to="/booking">Reservations</Link>
+            </li>
+            <li>
+              <Link to="/order">Order Online</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
           </ul>
         </div>
         <div className="footer__content">
