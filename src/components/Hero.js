@@ -14,9 +14,6 @@ function Hero() {
             We are a family owned Mediterranean restaurant, focused on
             traditional recipes served with a modern twist.
           </p>
-          {/* <a href="#" className="hero__cta lead-text">
-            Reserve a Table
-          </a> */}
           <Link to="/booking" className="hero__cta lead-text">
             Reserve a Table
           </Link>

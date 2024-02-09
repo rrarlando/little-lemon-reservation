@@ -15,7 +15,7 @@ function Footer() {
           alt="little lemon logo"
         />
         <div className="footer__content">
-          <h4 className="footer__heading">Important Links</h4>
+          <h4 className="footer__heading">Sitemap</h4>
           <ul>
             <li>
               <Link to="/">Home</Link>
