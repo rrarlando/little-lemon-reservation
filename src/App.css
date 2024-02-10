@@ -299,6 +299,31 @@ li {
   width: 2.4rem;
   height: auto;
 }
+
+/* -- BOOKING FORM -- */
+.booking-title {
+  background-color: var(--primary-1);
+  text-align: center;
+  padding: 2rem;
+}
+
+.booking-title > .subtitle {
+  color: var(--primary-2);
+  margin-bottom: auto;
+}
+
+.booking-title > .lead-text {
+  color: #fff;
+}
+
+.booking-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 20rem;
+  gap: 2rem;
+  margin: 4.8rem auto;
+}
+
 /* Responsive Design */
 @media (min-width: 600px) {
   .specials__cards {
