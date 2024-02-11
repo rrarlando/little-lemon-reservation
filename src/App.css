@@ -215,7 +215,10 @@ li {
   padding-bottom: 4rem;
 }
 
-.specials__item,
+.specials__item {
+  border-radius: 1.6rem;
+}
+
 .specials__img {
   border-top-left-radius: 1.6rem;
   border-top-right-radius: 1.6rem;

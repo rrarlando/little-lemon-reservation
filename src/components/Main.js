@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Hero from './Hero';
 import Specials from './Specials';
 import BookingPage from './BookingPage';
+import fakeAPI from './data/fakeAPI';
 import { Route, Routes } from 'react-router-dom';
 
+export const updateTimes = (state, action) => {
+  switch (action.type) {
+    case 'SET_TIMES':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 function Main() {
-  const [availableTimes, setAvailableTimes] = useState([
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-  ]);
+  const [state, dispatch] = useReducer(updateTimes, []);
+
+  useEffect(() => {
+    const initializeTimes = async () => {
+      const today = new Date();
+      try {
+        const times = await fakeAPI.fetchAPI(today);
+        dispatch({ type: 'SET_TIMES', payload: times });
+      } catch (error) {
+        console.error('Failed to fetch times:', error);
+      }
+    };
+
+    initializeTimes();
+  }, []);
 
   return (
     <main className="main">
@@ -28,10 +46,7 @@ function Main() {
         <Route
           path="/booking"
           element={
-            <BookingPage
-              availableTimes={availableTimes}
-              setAvailableTimes={setAvailableTimes}
-            />
+            <BookingPage availableTimes={state} setAvailableTimes={dispatch} />
           }
         />
       </Routes>

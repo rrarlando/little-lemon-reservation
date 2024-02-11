@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import fakeAPI from './data/fakeAPI';
 
 function BookingForm({ availableTimes, setAvailableTimes }) {
   const [date, setDate] = useState('');
@@ -6,9 +7,32 @@ function BookingForm({ availableTimes, setAvailableTimes }) {
   const [guests, setGuests] = useState('');
   const [occasion, setOccasion] = useState('');
 
-  const handleSubmit = e => {
+  const handleDateChange = async e => {
+    setDate(e.target.value);
+    const date = new Date(e.target.value);
+    try {
+      const times = await fakeAPI.fetchAPI(date);
+      setAvailableTimes({ type: 'SET_TIMES', payload: times });
+    } catch (error) {
+      console.error('Failed to fetch times:', error);
+    }
+  };
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log(date, time, guests, occasion);
+    const formData = { date, time, guests, occasion };
+    try {
+      const isSubmitted = await fakeAPI.submitAPI(formData);
+      if (isSubmitted) {
+        console.log(
+          `Form submitted successfully ${date} ${time}, ${guests}, ${occasion}`
+        );
+      } else {
+        console.log('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Failed to submit form:', error);
+    }
   };
 
   return (
@@ -19,7 +43,7 @@ function BookingForm({ availableTimes, setAvailableTimes }) {
           type="date"
           id="res-date"
           value={date}
-          onChange={e => setDate(e.target.value)}
+          onChange={handleDateChange}
         />
         <label htmlFor="res-time">Choose time</label>
         <select
@@ -27,7 +51,7 @@ function BookingForm({ availableTimes, setAvailableTimes }) {
           value={time}
           onChange={e => setTime(e.target.value)}
         >
-          {availableTimes.map(availableTime => (
+          {availableTimes?.map(availableTime => (
             <option key={availableTime}>{availableTime}</option>
           ))}
         </select>
