@@ -16,21 +16,21 @@ export const updateTimes = (state, action) => {
   }
 };
 
+export const initializeTimes = async (date, dispatch) => {
+  try {
+    const times = await fakeAPI.fetchAPI(date);
+    dispatch({ type: 'SET_TIMES', payload: times });
+  } catch (error) {
+    console.error('Failed to fetch times:', error);
+  }
+};
+
 function Main() {
   const [state, dispatch] = useReducer(updateTimes, []);
 
   useEffect(() => {
-    const initializeTimes = async () => {
-      const today = new Date();
-      try {
-        const times = await fakeAPI.fetchAPI(today);
-        dispatch({ type: 'SET_TIMES', payload: times });
-      } catch (error) {
-        console.error('Failed to fetch times:', error);
-      }
-    };
-
-    initializeTimes();
+    const today = new Date();
+    initializeTimes(today, dispatch);
   }, []);
 
   const navigate = useNavigate();

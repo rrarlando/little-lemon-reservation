@@ -22,7 +22,7 @@ function BookingForm() {
     }
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     const formData = { date, time, guests, occasion };
     submitForm(formData);
