@@ -2,8 +2,10 @@ import React, { useEffect, useReducer } from 'react';
 import Hero from './Hero';
 import Specials from './Specials';
 import BookingPage from './BookingPage';
+import ConfirmedBooking from './ConfirmedBooking';
 import fakeAPI from './data/fakeAPI';
-import { Route, Routes } from 'react-router-dom';
+import BookingContext from './BookingContext';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 export const updateTimes = (state, action) => {
   switch (action.type) {
@@ -31,26 +33,50 @@ function Main() {
     initializeTimes();
   }, []);
 
+  const navigate = useNavigate();
+
+  const submitForm = async formData => {
+    try {
+      const response = await fakeAPI.submitAPI(formData);
+      if (response) {
+        navigate('/confirmed');
+      } else {
+        alert('Form submission failed');
+      }
+    } catch (error) {
+      alert('Failed to submit form:', error);
+    }
+  };
+
   return (
-    <main className="main">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Hero />
-              <Specials />
-            </>
-          }
-        />
-        <Route
-          path="/booking"
-          element={
-            <BookingPage availableTimes={state} setAvailableTimes={dispatch} />
-          }
-        />
-      </Routes>
-    </main>
+    <BookingContext.Provider
+      value={{ availableTimes: state, setAvailableTimes: dispatch, submitForm }}
+    >
+      <main className="main">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero />
+                <Specials />
+              </>
+            }
+          />
+          <Route
+            path="/booking"
+            element={
+              <BookingPage
+                availableTimes={state}
+                setAvailableTimes={dispatch}
+                submitForm={submitForm}
+              />
+            }
+          />
+          <Route path="/confirmed" element={<ConfirmedBooking />} />
+        </Routes>
+      </main>
+    </BookingContext.Provider>
   );
 }
 

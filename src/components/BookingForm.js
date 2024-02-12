@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import BookingContext from './BookingContext';
 import fakeAPI from './data/fakeAPI';
 
-function BookingForm({ availableTimes, setAvailableTimes }) {
+function BookingForm() {
+  const { availableTimes, setAvailableTimes, submitForm } =
+    useContext(BookingContext);
+
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [guests, setGuests] = useState('');
@@ -21,18 +25,7 @@ function BookingForm({ availableTimes, setAvailableTimes }) {
   const handleSubmit = async e => {
     e.preventDefault();
     const formData = { date, time, guests, occasion };
-    try {
-      const isSubmitted = await fakeAPI.submitAPI(formData);
-      if (isSubmitted) {
-        console.log(
-          `Form submitted successfully ${date} ${time}, ${guests}, ${occasion}`
-        );
-      } else {
-        console.log('Form submission failed');
-      }
-    } catch (error) {
-      console.error('Failed to submit form:', error);
-    }
+    submitForm(formData);
   };
 
   return (
