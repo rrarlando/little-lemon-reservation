@@ -63,16 +63,7 @@ function Main() {
               </>
             }
           />
-          <Route
-            path="/booking"
-            element={
-              <BookingPage
-                availableTimes={state}
-                setAvailableTimes={dispatch}
-                submitForm={submitForm}
-              />
-            }
-          />
+          <Route path="/booking" element={<BookingPage />} />
           <Route path="/confirmed" element={<ConfirmedBooking />} />
         </Routes>
       </main>

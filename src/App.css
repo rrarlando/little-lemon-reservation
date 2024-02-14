@@ -33,6 +33,12 @@ li {
   list-style: none;
 }
 
+button,
+input,
+select {
+  font-family: inherit;
+}
+
 /* -- Utilities -- */
 .container {
   max-width: 88rem;
@@ -88,6 +94,15 @@ li {
 .paragraph {
   line-height: 1.5;
   max-width: 65ch;
+}
+
+.button-primary {
+  background-color: var(--primary-2);
+  color: #000;
+}
+
+.button-primary:disabled {
+  background-color: var(--highlight-1);
 }
 
 /* -- HEADER & NAV -- */
@@ -164,7 +179,6 @@ li {
 
 .hero__cta,
 .specials__cta {
-  background-color: var(--primary-2);
   display: inline-block;
   padding: 0.8em 1em;
   border-radius: 1.6rem;
@@ -320,12 +334,43 @@ li {
 }
 
 .booking-form {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2.4rem;
+}
+
+.booking-form__field {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  max-width: 20rem;
-  gap: 2rem;
-  margin: 4.8rem auto;
+  gap: 1rem;
+  margin: 1rem;
+}
+
+.booking-form__field > label {
+  font-weight: 700;
+}
+
+/* replace default arrow/chevron */
+.booking-form__field > select {
+  appearance: none;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAdVBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhMdQaAAAAJ3RSTlMAAAECAwQGBwsOFBwkJTg5RUZ4eYCHkJefpaytrsXGy8zW3+Do8vNn0bsyAAAAYElEQVR42tXROwJDQAAA0Ymw1p9kiT+L5P5HVEi3qJn2lcPjtIuzUIJ/rhIGy762N3XaThqMN1ZPALsZPEzG1x8LrFL77DHBnEMxBewz0fJ6LyFHTPL7xhwzWYrJ9z22AqmQBV757MHfAAAAAElFTkSuQmCC);
+  background-position: 100%;
+  background-repeat: no-repeat;
+  padding: 1rem 1.6rem;
+  border-radius: 1.6rem;
+}
+
+.booking-form__input {
+  flex: 1;
+  padding: 1rem 1.6rem;
+  border: 0.15rem solid;
+  border-radius: 1.6rem;
+  border-color: var(--highlight-1);
+  width: 100%;
 }
 
 /* -- CONFIRMED BOOKING -- */

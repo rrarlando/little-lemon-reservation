@@ -25,7 +25,7 @@ function Specials() {
     <section className="specials container">
       <div className="specials__heading">
         <h2 className="subtitle">This week's specials!</h2>
-        <Link to="/menu" className="specials__cta lead-text">
+        <Link to="/menu" className="specials__cta button-primary lead-text">
           Online Menu
         </Link>
       </div>
