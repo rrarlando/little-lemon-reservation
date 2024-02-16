@@ -103,6 +103,7 @@ select {
 
 .button-primary:disabled {
   background-color: var(--highlight-1);
+  color: var(--highlight-2);
 }
 
 /* -- HEADER & NAV -- */

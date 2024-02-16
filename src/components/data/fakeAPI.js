@@ -19,8 +19,6 @@ const seededGenerator = (date, hour) => {
 const fetchAPI = date => {
   let result = [];
 
-  result.push('--- Select a Time ---');
-
   for (let hour = 15; hour <= 23; hour++) {
     if (seededGenerator(date, hour) < 0.5) result.push(hour + ':00');
     if (seededGenerator(date, hour + 7) < 0.5) result.push(hour + ':30');
