@@ -14,6 +14,13 @@ function BookingForm() {
   const [minDate, setMinDate] = useState('');
   const [maxDate, setMaxDate] = useState('');
 
+  const [touchedFields, setTouchedFields] = useState({});
+
+  const [dateError, setDateError] = useState('');
+  const [timeError, setTimeError] = useState('');
+  const [guestsError, setGuestsError] = useState('');
+  const [occasionError, setOccasionError] = useState('');
+
   function formatDate(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -36,20 +43,95 @@ function BookingForm() {
     const minDateObj = new Date(minDate);
     const maxDateObj = new Date(maxDate);
 
-    if (inputDate < minDateObj || inputDate > maxDateObj) {
-      alert('Please enter a date within the allowed range.');
-      return;
+    if (touchedFields.date) {
+      if (inputDate < minDateObj || inputDate > maxDateObj) {
+        setDateError(`Please enter a date from ${minDate} to ${maxDate}`);
+        return;
+      } else {
+        setDateError('');
+      }
     }
+
     setDate(e.target.value);
-    console.log(e.target.value);
-    console.log(typeof e.target.value);
-    const date = new Date(e.target.value);
+
+    const dateToFetch = new Date(e.target.value);
     try {
-      const times = await fakeAPI.fetchAPI(date);
+      const times = await fakeAPI.fetchAPI(dateToFetch);
       setAvailableTimes({ type: 'SET_TIMES', payload: times });
     } catch (error) {
-      console.error('Failed to fetch times:', error);
+      alert('Failed to fetch times:', error);
     }
+  };
+
+  const handleTimeChange = e => {
+    const timeInput = e.target.value;
+    setTime(timeInput);
+
+    if (touchedFields.time) {
+      if (!timeInput) {
+        setTimeError('Please select a time.');
+      } else {
+        setTimeError('');
+      }
+    }
+  };
+
+  const handleGuestsChange = e => {
+    const guestsInput = e.target.value;
+    setGuests(guestsInput);
+
+    if (touchedFields.guests) {
+      if (!guestsInput || Number(guestsInput) < 1 || Number(guestsInput) > 10) {
+        setGuestsError('Please enter the number of guests from 1 to 10.');
+      } else {
+        setGuestsError('');
+      }
+    }
+  };
+
+  const handleOccasionChange = e => {
+    const occasionInput = e.target.value;
+    setOccasion(occasionInput);
+
+    if (touchedFields.occasion) {
+      if (!occasionInput) {
+        setOccasionError('Please select an occasion.');
+      } else {
+        setOccasionError('');
+      }
+    }
+  };
+
+  const handleBlur = (field, value) => {
+    setTouchedFields(prevState => ({ ...prevState, [field]: true }));
+
+    // Call the respective handleChange function
+    if (field === 'date') {
+      if (value) {
+        handleDateChange({ target: { value } });
+      } else if (touchedFields.date) {
+        setDateError(`Please enter a date from ${minDate} to ${maxDate}`);
+      }
+    } else if (field === 'time') {
+      handleTimeChange({ target: { value } });
+    } else if (field === 'guests') {
+      handleGuestsChange({ target: { value } });
+    } else if (field === 'occasion') {
+      handleOccasionChange({ target: { value } });
+    }
+  };
+
+  const isFormValid = () => {
+    return (
+      date &&
+      time &&
+      guests &&
+      occasion &&
+      !dateError &&
+      !timeError &&
+      !guestsError &&
+      !occasionError
+    );
   };
 
   const clearForm = () => {
@@ -82,7 +164,9 @@ function BookingForm() {
             min={minDate}
             max={maxDate}
             onChange={handleDateChange}
+            onBlur={e => handleBlur('date', e.target.value)}
           />
+          {dateError && <p className="error">{dateError}</p>}
         </div>
         <div className="booking-form__field">
           <label htmlFor="res-time">
@@ -93,7 +177,8 @@ function BookingForm() {
             id="res-time"
             value={time}
             required
-            onChange={e => setTime(e.target.value)}
+            onChange={handleTimeChange}
+            onBlur={e => handleBlur('time', e.target.value)}
           >
             <option value="" disabled hidden>
               --- Select a Time ---
@@ -104,6 +189,7 @@ function BookingForm() {
               </option>
             ))}
           </select>
+          {timeError && <p className="error">{timeError}</p>}
         </div>
         <div className="booking-form__field">
           <label htmlFor="guests">
@@ -117,8 +203,10 @@ function BookingForm() {
             max="10"
             id="guests"
             value={guests}
-            onChange={e => setGuests(e.target.value)}
+            onChange={handleGuestsChange}
+            onBlur={e => handleBlur('guests', e.target.value)}
           />
+          {guestsError && <p className="error">{guestsError}</p>}
         </div>
         <div className="booking-form__field">
           <label htmlFor="occasion">
@@ -128,7 +216,8 @@ function BookingForm() {
             className="booking-form__input"
             id="occasion"
             value={occasion}
-            onChange={e => setOccasion(e.target.value)}
+            onChange={handleOccasionChange}
+            onBlur={e => handleBlur('occasion', e.target.value)}
           >
             <option value="" disabled hidden>
               -- Choose Occasion --
@@ -138,13 +227,14 @@ function BookingForm() {
             <option value="Other">Other</option>
             <option value="No Occasion">No Occasion</option>
           </select>
+          {occasionError && <p className="error">{occasionError}</p>}
         </div>
         <div className="booking-form__field">
           <input
             className="booking-form__input button-primary"
             type="submit"
             value="Make Your reservation"
-            disabled={!date || !time || !guests || !occasion}
+            disabled={!isFormValid()}
           />
         </div>
       </form>
