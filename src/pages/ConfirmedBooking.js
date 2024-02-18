@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckCircle from './icons/CheckCircle';
+import CheckCircle from '../components/icons/CheckCircle';
 
 function ConfirmedBooking() {
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import BookingContext from './BookingContext';
-import fakeAPI from './data/fakeAPI';
+import BookingContext from '../components/BookingContext';
+import fakeAPI from '../components/data/fakeAPI';
 
 function BookingForm() {
   const { availableTimes, setAvailableTimes, submitForm } =
@@ -15,6 +15,7 @@ function BookingForm() {
   const [maxDate, setMaxDate] = useState('');
 
   const [touchedFields, setTouchedFields] = useState({});
+  const [loading, setLoading] = useState('');
 
   const [dateError, setDateError] = useState('');
   const [timeError, setTimeError] = useState('');
@@ -40,19 +41,10 @@ function BookingForm() {
 
   const handleDateChange = async e => {
     const inputDate = new Date(e.target.value);
-    const minDateObj = new Date(minDate);
-    const maxDateObj = new Date(maxDate);
-
-    if (touchedFields.date) {
-      if (inputDate < minDateObj || inputDate > maxDateObj) {
-        setDateError(`Please enter a date from ${minDate} to ${maxDate}`);
-        return;
-      } else {
-        setDateError('');
-      }
-    }
 
     setDate(e.target.value);
+    validateField('date', inputDate);
+    setLoading(true);
 
     const dateToFetch = new Date(e.target.value);
     try {
@@ -60,33 +52,27 @@ function BookingForm() {
       setAvailableTimes({ type: 'SET_TIMES', payload: times });
     } catch (error) {
       alert('Failed to fetch times:', error);
+    } finally {
+      setLoading(false);
     }
+
+    handleBlur('date', e.target.value);
   };
 
   const handleTimeChange = e => {
     const timeInput = e.target.value;
     setTime(timeInput);
 
-    if (touchedFields.time) {
-      if (!timeInput) {
-        setTimeError('Please select a time.');
-      } else {
-        setTimeError('');
-      }
-    }
+    validateField('time', timeInput);
+
+    handleBlur('time', e.target.value);
   };
 
   const handleGuestsChange = e => {
-    const guestsInput = e.target.value;
+    const guestsInput = Number(e.target.value);
     setGuests(guestsInput);
-
-    if (touchedFields.guests) {
-      if (!guestsInput || Number(guestsInput) < 1 || Number(guestsInput) > 10) {
-        setGuestsError('Please enter the number of guests from 1 to 10.');
-      } else {
-        setGuestsError('');
-      }
-    }
+    validateField('guests', guestsInput);
+    handleBlur('guests', e.target.value);
   };
 
   const handleOccasionChange = e => {
@@ -100,24 +86,65 @@ function BookingForm() {
         setOccasionError('');
       }
     }
+
+    handleBlur('occasion', e.target.value);
   };
 
   const handleBlur = (field, value) => {
     setTouchedFields(prevState => ({ ...prevState, [field]: true }));
+    const error = validateField(field, value);
+    if (error) {
+      setErrorForField(field, error);
+    } else {
+      setErrorForField(field, ''); // Clear error if validation passes
+    }
+  };
 
-    // Call the respective handleChange function
-    if (field === 'date') {
-      if (value) {
-        handleDateChange({ target: { value } });
-      } else if (touchedFields.date) {
-        setDateError(`Please enter a date from ${minDate} to ${maxDate}`);
-      }
-    } else if (field === 'time') {
-      handleTimeChange({ target: { value } });
-    } else if (field === 'guests') {
-      handleGuestsChange({ target: { value } });
-    } else if (field === 'occasion') {
-      handleOccasionChange({ target: { value } });
+  const validateField = (field, value) => {
+    switch (field) {
+      case 'date':
+        const minDateObj = new Date(minDate);
+        const maxDateObj = new Date(maxDate);
+        if (value < minDateObj || value > maxDateObj) {
+          return `Please select a date from ${minDate} to ${maxDate}`;
+        }
+        return null;
+      case 'time':
+        if (!value & !loading) {
+          return 'Please select a time.';
+        }
+        return null;
+      case 'guests':
+        if (value < 1 || value > 10) {
+          return 'Please enter the number of guests from 1 to 10.';
+        }
+        return null;
+      case 'occasion':
+        if (!value) {
+          return 'Please select an occasion.';
+        }
+        return null;
+      default:
+        return null;
+    }
+  };
+
+  const setErrorForField = (field, errorMessage) => {
+    switch (field) {
+      case 'date':
+        setDateError(errorMessage);
+        break;
+      case 'time':
+        setTimeError(errorMessage);
+        break;
+      case 'guests':
+        setGuestsError(errorMessage);
+        break;
+      case 'occasion':
+        setOccasionError(errorMessage);
+        break;
+      default:
+        break;
     }
   };
 
@@ -165,8 +192,13 @@ function BookingForm() {
             max={maxDate}
             onChange={handleDateChange}
             onBlur={e => handleBlur('date', e.target.value)}
+            aria-describedby="date-error"
           />
-          {dateError && <p className="error">{dateError}</p>}
+          {dateError && (
+            <p className="error" id="date-error">
+              {dateError}
+            </p>
+          )}
         </div>
         <div className="booking-form__field">
           <label htmlFor="res-time">
@@ -179,6 +211,7 @@ function BookingForm() {
             required
             onChange={handleTimeChange}
             onBlur={e => handleBlur('time', e.target.value)}
+            aria-describedby="time-error"
           >
             <option value="" disabled hidden>
               --- Select a Time ---
@@ -189,7 +222,11 @@ function BookingForm() {
               </option>
             ))}
           </select>
-          {timeError && <p className="error">{timeError}</p>}
+          {timeError && (
+            <p className="error" id="time-error">
+              {timeError}
+            </p>
+          )}
         </div>
         <div className="booking-form__field">
           <label htmlFor="guests">
@@ -205,8 +242,13 @@ function BookingForm() {
             value={guests}
             onChange={handleGuestsChange}
             onBlur={e => handleBlur('guests', e.target.value)}
+            aria-describedby="guests-error"
           />
-          {guestsError && <p className="error">{guestsError}</p>}
+          {guestsError && (
+            <p className="error" id="guests-error">
+              {guestsError}
+            </p>
+          )}
         </div>
         <div className="booking-form__field">
           <label htmlFor="occasion">
@@ -214,10 +256,12 @@ function BookingForm() {
           </label>
           <select
             className="booking-form__input"
+            required
             id="occasion"
             value={occasion}
             onChange={handleOccasionChange}
             onBlur={e => handleBlur('occasion', e.target.value)}
+            aria-describedby="occasion-error"
           >
             <option value="" disabled hidden>
               -- Choose Occasion --
@@ -227,15 +271,21 @@ function BookingForm() {
             <option value="Other">Other</option>
             <option value="No Occasion">No Occasion</option>
           </select>
-          {occasionError && <p className="error">{occasionError}</p>}
+          {occasionError && (
+            <p className="error" id="occasion-error">
+              {occasionError}
+            </p>
+          )}
         </div>
         <div className="booking-form__field">
-          <input
+          <button
             className="booking-form__input button-primary"
-            type="submit"
-            value="Make Your reservation"
+            // type="submit"
+            // value="Make Your reservation"
             disabled={!isFormValid()}
-          />
+          >
+            <span>Make Your Reservation</span>
+          </button>
         </div>
       </form>
     </div>

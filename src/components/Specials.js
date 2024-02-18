@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Specials() {
   const menuCard = menu.map(item => {
     return (
-      <div key={item.id} className="specials__item">
+      <div key={item.id} className="specials__item fade-in">
         <img src={item.image} alt={item.title} className="specials__img" />
         <div className="specials__content">
           <div className="specials__title-container">
@@ -26,7 +26,7 @@ function Specials() {
       <div className="specials__heading">
         <h2 className="subtitle">This week's specials!</h2>
         <Link to="/menu" className="specials__cta button-primary lead-text">
-          Online Menu
+          <span>Online Menu</span>
         </Link>
       </div>
       <div className="specials__cards">{menuCard}</div>

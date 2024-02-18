@@ -7,16 +7,17 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer role="contentinfo" className="footer">
       <div className="container footer-grid">
         <img
           className="footer__logo"
           src={small_logo}
           alt="little lemon logo"
+          aria-labelledby="footer-logo-heading"
         />
         <div className="footer__content">
           <h4 className="footer__heading">Sitemap</h4>
-          <ul>
+          <ul className="footer__content-column">
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -38,8 +39,10 @@ function Footer() {
           </ul>
         </div>
         <div className="footer__content">
-          <h4 className="footer__heading">Contact</h4>
-          <ul>
+          <h4 className="footer__heading" id="footer-logo-heading">
+            Contact
+          </h4>
+          <ul className="footer__content-column">
             <li>
               <strong>Address: </strong>1234 Lake Shore Drive, Chicago, IL
               60605, USA{' '}
@@ -57,18 +60,30 @@ function Footer() {
           <h4 className="footer__heading">Follow us!</h4>
           <ul className="social-media">
             <li>
-              <a href="#">
-                <img className="social-icon" src={facebook}></img>
+              <a href="https://www.facebook.com" aria-label="Facebook">
+                <img
+                  className="social-icon"
+                  src={facebook}
+                  alt="facebook logo"
+                ></img>
               </a>
             </li>
             <li>
-              <a href="#">
-                <img className="social-icon" src={instagram}></img>
+              <a href="https://www.instagram.com" aria-label="Instagram">
+                <img
+                  className="social-icon"
+                  src={instagram}
+                  alt="instagram logo"
+                ></img>
               </a>
             </li>
             <li>
-              <a href="#">
-                <img className="social-icon" src={pinterest}></img>
+              <a href="https://www.pinterest.com" aria-label="Pinterest">
+                <img
+                  className="social-icon"
+                  src={pinterest}
+                  alt="pinterest logo"
+                ></img>
               </a>
             </li>
           </ul>

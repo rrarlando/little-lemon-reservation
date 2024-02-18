@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../App.css';
 import CloseButton from './icons/CloseButton';
 import HamburgerMenu from './icons/HamburgerMenu';
@@ -14,43 +14,63 @@ function Nav() {
   return (
     <>
       <nav ref={navRef} className="main-nav">
-        <ul className="main-nav__list">
-          <li className="main-nav__item">
-            <Link to="/" onClick={toggleNavbar} className="main-nav__link">
+        <ul role="menubar" className="main-nav__list">
+          <li role="menuitem">
+            <NavLink to="/" onClick={toggleNavbar} className="main-nav__link">
               Home
-            </Link>
+            </NavLink>
           </li>
-          <li>
-            <Link to="/about" onClick={toggleNavbar} className="main-nav__link">
+          <li role="menuitem">
+            <NavLink
+              to="/about"
+              onClick={toggleNavbar}
+              className="main-nav__link"
+            >
               About
-            </Link>
+            </NavLink>
           </li>
-          <li>
-            <Link to="/menu" onClick={toggleNavbar} className="main-nav__link">
+          <li role="menuitem">
+            <NavLink
+              to="/menu"
+              onClick={toggleNavbar}
+              className="main-nav__link"
+            >
               Menu
-            </Link>
+            </NavLink>
           </li>
-          <li>
-            <Link
+          <li role="menuitem">
+            <NavLink
               to="/booking"
               onClick={toggleNavbar}
               className="main-nav__link"
             >
               Reservations
-            </Link>
+            </NavLink>
           </li>
-          <li>
-            <Link to="/order" onClick={toggleNavbar} className="main-nav__link">
+          <li role="menuitem">
+            <NavLink
+              to="/order"
+              onClick={toggleNavbar}
+              className="main-nav__link"
+            >
               Order Online
-            </Link>
+            </NavLink>
           </li>
-          <li>
-            <Link to="/login" onClick={toggleNavbar} className="main-nav__link">
+          <li role="menuitem">
+            <NavLink
+              to="/login"
+              onClick={toggleNavbar}
+              className="main-nav__link"
+            >
               Login
-            </Link>
+            </NavLink>
           </li>
         </ul>
-        <button onClick={toggleNavbar} className="main-nav__btn close-btn">
+        <button
+          onClick={toggleNavbar}
+          className="main-nav__btn close-btn"
+          aria-label="Close navigation"
+        >
           <CloseButton />
         </button>
       </nav>

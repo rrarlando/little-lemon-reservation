@@ -1,8 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
 import Hero from './Hero';
 import Specials from './Specials';
-import BookingPage from './BookingPage';
-import ConfirmedBooking from './ConfirmedBooking';
+import BookingPage from '../pages/BookingPage';
+import ConfirmedBooking from '../pages/ConfirmedBooking';
+import Menu from '../pages/Menu';
+import Order from '../pages/Order';
+import Login from '../pages/Login';
+import About from '../pages/About';
 import fakeAPI from './data/fakeAPI';
 import BookingContext from './BookingContext';
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -63,8 +67,12 @@ function Main() {
               </>
             }
           />
+          <Route path="/about" element={<About />} />
+          <Route path="/menu" element={<Menu />} />
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/confirmed" element={<ConfirmedBooking />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </main>
     </BookingContext.Provider>

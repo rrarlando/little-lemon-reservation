@@ -1,13 +1,11 @@
 import React from 'react';
+import PageHeading from '../components/PageHeading';
 import BookingForm from './BookingForm';
 
 function BookingPage() {
   return (
     <>
-      <div className="booking-title">
-        <h2 className="subtitle">Reservations</h2>
-        <h3 className="lead-text">Book a Table</h3>
-      </div>
+      <PageHeading title="Reservations" subtitle="Book a table" />
       <BookingForm />
     </>
   );
