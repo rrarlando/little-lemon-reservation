@@ -4,7 +4,7 @@ import BookingContext from '../components/BookingContext';
 import BookingForm from './BookingForm';
 import '../components/data/fakeAPI';
 
-jest.mock('./data/fakeAPI', () => ({
+jest.mock('../components/data/fakeAPI', () => ({
   fetchAPI: jest.fn().mockResolvedValue([]),
   submitAPI: jest.fn(),
 }));
