@@ -432,6 +432,10 @@ select {
   width: 100%;
 }
 
+.booking-form__input.button-primary {
+  cursor: pointer;
+}
+
 /* -- CONFIRMED BOOKING -- */
 .confirmed-booking {
   display: flex;

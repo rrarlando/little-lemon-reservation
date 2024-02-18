@@ -280,8 +280,6 @@ function BookingForm() {
         <div className="booking-form__field">
           <button
             className="booking-form__input button-primary"
-            // type="submit"
-            // value="Make Your reservation"
             disabled={!isFormValid()}
           >
             <span>Make Your Reservation</span>
