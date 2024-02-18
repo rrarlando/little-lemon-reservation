@@ -354,7 +354,7 @@ select {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: repeat(4, auto);
   column-gap: 1rem;
   row-gap: 1rem;
 }
@@ -374,6 +374,10 @@ select {
 
 .footer__heading {
   font-weight: 800;
+}
+
+.footer__nav a:hover {
+  color: var(--primary-1);
 }
 
 .social-media {
@@ -562,6 +566,11 @@ select {
 
   .main-nav__link:hover::after {
     width: 100%;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    row-gap: 2.4rem;
   }
 }
 

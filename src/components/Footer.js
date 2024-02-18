@@ -17,7 +17,7 @@ function Footer() {
         />
         <div className="footer__content">
           <h4 className="footer__heading">Sitemap</h4>
-          <ul className="footer__content-column">
+          <ul className="footer__content-column footer__nav">
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -44,8 +44,8 @@ function Footer() {
           </h4>
           <ul className="footer__content-column">
             <li>
-              <strong>Address: </strong>1234 Lake Shore Drive, Chicago, IL
-              60605, USA{' '}
+              <strong>Address: </strong>1234 Lake Shore Drive, <br />
+              Chicago, IL 60605, USA{' '}
             </li>
             <li>
               <strong>Phone: </strong>
