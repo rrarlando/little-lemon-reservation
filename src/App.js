@@ -8,8 +8,10 @@ function App() {
   return (
     <Router>
       <Header />
-      <Main />
-      <Footer />
+      <div className="wrapper">
+        <Main />
+        <Footer />
+      </div>
     </Router>
   );
 }
